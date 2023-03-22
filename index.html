@@ -12,13 +12,18 @@
 <link id="styles" rel="stylesheet" type="text/css" href="styles/modern.css">
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@700&family=Work+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@700&family=Work+Sans&display=swap"
+  rel="stylesheet">
 
 <!-- Include game engine -->
 <script src="index.js"></script>
 
 <!-- Include game data ('disk') -->
 <script src="game-disks/demo-disk.js"></script>
+<script src="game-disks/portal_1.js"></script>
+<script src="game-disks/portal_2.js"></script>
 
+
+<script>dd = addRoomsToDisk(demoDisk, portal_1, portal_2)</script>
 <!-- Load disk into engine -->
-<script>loadDisk(demoDisk);</script>
+<script>loadDisk(dd);</script>

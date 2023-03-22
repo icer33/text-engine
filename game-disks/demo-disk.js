@@ -5,7 +5,7 @@ const demoDisk = () => ({
       id: 'foyer', // unique ID for this room
       name: 'The Foyer', // room name (shown when player enters the room)
       // room description (shown when player first enters the room)
-      desc:  `Welcome to the **TEXT-ENGINE** demo disk! This disk is a text adventure game designed to introduce you to the features available to you in **text-engine**. Using this engine, you can make a text game of your own.
+      desc: `Welcome to the **TEXT-ENGINE** demo disk! This disk is a text adventure game designed to introduce you to the features available to you in **text-engine**. Using this engine, you can make a text game of your own.
 
       Type **LOOK** to have a look around.`,
       // optional callback when player issues the LOOK command
@@ -106,7 +106,8 @@ const demoDisk = () => ({
       // places the player can go from this room
       exits: [
         // GO NORTH command leads to the Reception Desk
-        {dir: 'north', id: 'reception'},
+        { dir: 'north', id: 'reception' },
+        { dir: "p1", id: 'portal_1' },
       ],
     },
     {
@@ -150,9 +151,9 @@ const demoDisk = () => ({
       ],
       exits: [
         // exits with a BLOCK cannot be used, but print a message instead
-        {dir: 'east', id: 'lab', block: `The door is locked.`},
-        {dir: ['upstairs', 'up'], id: 'advanced', block: `There's a locked GATE blocking your path.`},
-        {dir: 'south', id: 'foyer'},
+        { dir: 'east', id: 'lab', block: `The door is locked.` },
+        { dir: ['upstairs', 'up'], id: 'advanced', block: `There's a locked GATE blocking your path.` },
+        { dir: 'south', id: 'foyer' },
       ],
     },
     {
@@ -162,7 +163,7 @@ const demoDisk = () => ({
 
       To the **WEST** is the door to the Reception Desk.`,
       exits: [
-        {dir: 'west', id: 'reception'},
+        { dir: 'west', id: 'reception' },
       ],
     },
     {
@@ -172,7 +173,7 @@ const demoDisk = () => ({
 
       **DOWNSTAIRS** is the Reception Desk.`,
       exits: [
-        {dir: ['downstairs', 'down'], id: 'reception'},
+        { dir: ['downstairs', 'down'], id: 'reception' },
       ],
     },
   ],
@@ -492,4 +493,4 @@ const unlock = () => {
 };
 
 // attach it to the zero-argument commands object on the disk
-commands[0] = Object.assign(commands[0], {unlock});
+commands[0] = Object.assign(commands[0], { unlock });
