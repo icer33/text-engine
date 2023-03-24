@@ -8,7 +8,7 @@ files:
   - source: /package.json
     destination: /var/www/html/
   - source: /game-disks
-    destination: /var/www/html/game_disks
+    destination: /var/www/html/game-disks
   - source: /styles
     destination: /var/www/html/fonts
   - source: /game-disks
