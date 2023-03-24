@@ -13,9 +13,8 @@ const portal_10 = () => ({
             items: [
                 {
                     name: ['floating orb', 'orb'], // player can refer to this item by any of these names
-                    desc: `Your eyes are drawn to a large, shimmering orb hovering in mid-air, its surface pulsing with a warm, golden light. 
-          The room around you is dimly lit, but the orb seems to fill the space with a comforting radiance.`, // description shown when player looks at the item
-                    block: `It's far too large for you to carry.`, // optional reason player cannot pick up this item
+                    desc: `Madame Leota's floating head hovers six feet above you. She stares at you seriously.`, // description shown when player looks at the item
+                    block: `It's far too gross for you to carry.`, // optional reason player cannot pick up this item
                 }
             ],
             // places the player can go from this room
