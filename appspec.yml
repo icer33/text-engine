@@ -2,17 +2,17 @@ version: 0.0
 os: linux
 files:
   - source: /index.html
-    destination: /var/www/html/
+    destination: /var/www/textengine/public_html/
   - source: /index.js
-    destination: /var/www/html/
+    destination: /var/www/textengine/public_html/
   - source: /package.json
-    destination: /var/www/html/
+    destination: /var/www/textengine/public_html/
   - source: /game-disks
-    destination: /var/www/html/game-disks
+    destination: /var/www/textengine/public_html/game-disks
   - source: /styles
-    destination: /var/www/html/fonts
-  - source: /game-disks
-    destination: /var/www/html/styles
+    destination: /var/www/textengine/public_html/styles
+  - source: /fonts
+    destination: /var/www/textengine/public_html/fonts
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
