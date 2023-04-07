@@ -12,8 +12,6 @@ phases:
       - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
       - export HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c1-6)
       - echo $HASH
-#      - docker build -t demo-repo:$HASH .
-#      - docker tag demo-repo:$HASH 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:$HASH
       - docker build -t demo-repo:"$HASH" .
       - docker tag demo-repo:"$HASH" 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:"$HASH" 
  
@@ -23,4 +21,14 @@ phases:
       - echo Pushing the Docker image...
       - export HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c1-6)
       - echo $HASH
-      - docker push 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:"$HASH" 
+      - docker push 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:"$HASH"
+
+artifacts:
+  files:
+    - '**/*'
+  name: demo-repo
+  discard-paths: yes
+  base-directory: '<base-directory>'
+  environment:
+    variables:
+      HASH: "$HASH"
