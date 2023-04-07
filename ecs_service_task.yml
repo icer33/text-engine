@@ -1,6 +1,9 @@
 Description:
   This is a basic service and task definition template for ECS
 
+  # note - listener rule still needs to be added manual to the
+  # load balancer
+
 Parameters:
 
   YourName:
@@ -32,14 +35,10 @@ Parameters:
     Type: Number
     Default: 2
 
-  Listener:
-    Description: The Application Load Balancer listener to register with
-    Type: String
-    Default: arn:aws:elasticloadbalancing:us-east-2:474730797349:listener/app/cap1-ECS-sandbox/4085a4d47a77dac3/f5204b731bf9e4f2
-
 Resources:
   Service:
     Type: AWS::ECS::Service
+#    DependsOn: Listener
     DependsOn: ListenerRule
     Properties:
       Cluster: !Ref Cluster
@@ -56,7 +55,7 @@ Resources:
     Properties:
       Family: !Ref ServiceName
       ContainerDefinitions:
-        - Name: !Ref ServiceName
+        - Name: !Ref YourName
           Essential: true
           Image: 275396840892.dkr.ecr.us-east-1.amazonaws.com/ecs-refarch-cloudformation/product-service:1.0.0
           Memory: 128
@@ -83,20 +82,30 @@ Resources:
       Matcher:
         HttpCode: 200-299
       HealthCheckIntervalSeconds: 10
-      HealthCheckPath: /{$YourName}
+      HealthCheckPath: /aubrey
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 5
       HealthyThresholdCount: 2
 
+#  Listener:
+#    Type: AWS::ElasticLoadBalancingV2::Listener
+#    Properties:
+#      DefaultActions:
+#      - Type: forward
+#        TargetGroupArn: !Ref TargetGroup
+#      LoadBalancerArn: arn:aws:elasticloadbalancing:us-east-2:474730797349:loadbalancer/app/cap1-ECS-sandbox/4085a4d47a77dac3
+#      Port: '80'
+#      Protocol: HTTP
+
   ListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
     Properties:
-      ListenerArn: arn:aws:elasticloadbalancing:us-east-2:474730797349:loadbalancer/app/cap1-ECS-sandbox/4085a4d47a77dac3
-      Priority: 2
+      ListenerArn: arn:aws:elasticloadbalancing:us-east-2:474730797349:listener/app/cap1-ECS-sandbox/4085a4d47a77dac3/f5204b731bf9e4f2
+      Priority: 5
       Conditions:
         - Field: path-pattern
           Values:
-            - !Ref YourName
+            - /aubrey
       Actions:
         - TargetGroupArn: !Ref TargetGroup
           Type: forward

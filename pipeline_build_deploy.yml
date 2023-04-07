@@ -13,14 +13,11 @@ Parameters:
     Default: text-engine
     AllowedPattern: "[A-Za-z0-9-]+"
 
-  GitHubBranch:
-    Type: String
-    AllowedPattern: "[A-Za-z0-9-]+"
-
   GitHubRepoName:
     Default: aubvogato/text-engine
     Type: String
     Description: Name of the Github code repository
+
   BranchName:
     Type: String
     Default: aub
@@ -72,6 +69,7 @@ Resources:
         - Name: Source
           Actions:
             - Name: Source
+              Namespace: "SourceVariables"
               InputArtifacts: []
               OutputArtifacts:
                 - Name: SourceOutput
@@ -88,6 +86,7 @@ Resources:
         - Name: BuildDockerContainer
           Actions:
             - Name: BuildContainer
+              Namespace: "BuildVariables"
               InputArtifacts:
                 - Name: SourceOutput
               ActionTypeId:
@@ -99,30 +98,27 @@ Resources:
                 - Name: BuildOutput
               Configuration:
                 ProjectName: !Ref CodeBuildProjectName
-        - Name: Deploy
-          Actions:
-            - Name: CreateOrUpdateStack
-              ActionTypeId:
-                Category: Deploy
-                Owner: AWS
-                Provider: CloudFormation
-                Version: '1'
-              Configuration:
-                ActionMode: CREATE_UPDATE
-                StackName: my-stack
-                TemplatePath: ecs_service_task.yml
-                Capabilities: CAPABILITY_IAM
-                RoleArn: !Sub arn:aws:iam::474730797349:role/CloudFormationRole
-                ParameterOverrides: !Sub |
-                  {
-                    "ImageTag": "#{ArtifactName.demo-repo}"
-                  }
-              InputArtifacts:
-                - Name: SourceOutput
-                - Name: BuildOutput
-      ArtifactStore:
-        Location: !Ref S3BucketName
-        Type: S3
+#        - Name: Deploy
+#          Actions:
+#            - Name: CreateOrUpdateStack
+#              ActionTypeId:
+#                Category: Deploy
+#                Owner: AWS
+#                Provider: CloudFormation
+#                Version: '1'
+#              Configuration:
+#                ActionMode: CREATE_UPDATE
+#                EnvironmentVariables: '[{"name":"HASH","value":"#{BuildVariables.HASH}","type":"PLAINTEXT"}]'
+#                StackName: my-stack
+#                TemplatePath: ecs_service_task.yml
+#                Capabilities: CAPABILITY_IAM
+#                RoleArn: !Ref SampleCloudFormationCodePipelineServiceRole
+#                ParameterOverrides: '{"ImageTag": "#{ArtifactName.BuildOutput.HASH}"}'
+#              InputArtifacts:
+#                - Name: BuildOutput
+#      ArtifactStore:
+#        Location: !Ref S3BucketName
+#        Type: S3
 
 
   SampleCloudFormationCodePipelineServiceRole:
