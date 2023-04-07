@@ -4,10 +4,8 @@ Description:
 Parameters:
 
   StackName:
-    Description: What is your name?
+    Description: What is your first name? Please enter a single word with only letters.
     Type: String
-    AllowedPattern: "[A-Za-z]+"
-    ConstraintDescription: Please enter a single word with only letters.
 
   ServiceName:
     Description: The name of the service
