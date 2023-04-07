@@ -15,7 +15,6 @@ Parameters:
 
   GitHubBranch:
     Type: String
-    Default: main
     AllowedPattern: "[A-Za-z0-9-]+"
 
   GitHubRepoName:
@@ -97,7 +96,7 @@ Resources:
                 Provider: CodeBuild
                 Version: "1"
               OutputArtifacts:
-                - Name: BuildContainerArtifact
+                - Name: BuildOutput
               Configuration:
                 ProjectName: !Ref CodeBuildProjectName
         - Name: Deploy
@@ -119,8 +118,8 @@ Resources:
                     "ImageTag": "#{ArtifactName.demo-repo}"
                   }
               InputArtifacts:
-                - Name: Source
-                - Name: Build
+                - Name: SourceOutput
+                - Name: BuildOutput
       ArtifactStore:
         Location: !Ref S3BucketName
         Type: S3

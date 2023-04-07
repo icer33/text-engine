@@ -37,10 +37,6 @@ Parameters:
     Type: String
     Default: arn:aws:elasticloadbalancing:us-east-2:474730797349:listener/app/cap1-ECS-sandbox/4085a4d47a77dac3/f5204b731bf9e4f2
 
-  ContainerName:
-    Type: String
-    Default: yourName
-
 Resources:
   Service:
     Type: AWS::ECS::Service
@@ -51,7 +47,7 @@ Resources:
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
       LoadBalancers:
-        - ContainerName: !Ref ServiceName
+        - ContainerName: !Ref YourName
           ContainerPort: 8001
           TargetGroupArn: !Ref TargetGroup
 
@@ -75,7 +71,7 @@ Resources:
   CloudWatchLogsGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Ref AWS::YourName
+      LogGroupName: !Ref AWS::StackName
       RetentionInDays: 7
 
   TargetGroup:
