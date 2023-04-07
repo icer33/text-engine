@@ -58,16 +58,16 @@ Resources:
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
       LoadBalancers:
-        - ContainerName: {!Ref ServiceName}-service
+        - ContainerName: "{!Ref ServiceName}-service"
           ContainerPort: 8001
           TargetGroupArn: !Ref TargetGroup
 
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Family: {!Ref ServiceName}-service
+      Family: "{!Ref ServiceName}-service"
       ContainerDefinitions:
-        - Name: {!Ref ServiceName}-service
+        - Name: "{!Ref ServiceName}-service"
           Essential: true
           Image: 275396840892.dkr.ecr.us-east-1.amazonaws.com/ecs-refarch-cloudformation/product-service:1.0.0
           Memory: 128

@@ -8,12 +8,10 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - echo Image tag
+      - echo IMAGE_TAG
       - echo $IMAGE_TAG
-      - docker build -t demo_repo:latest .
-      - docker tag demo-repo:latest 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:latest     
-#      - docker build -t demo_repo:$IMAGE_TAG .
-#      - docker tag demo-repo:$IMAGE_TAG 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:$IMAGE_TAG      
+      - docker build -t demo-repo:latest .
+      - docker tag demo-repo:latest 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:latest       
   post_build:
     commands:
       - echo Build completed on `date`
