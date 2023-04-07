@@ -9,12 +9,7 @@ Parameters:
 
   ServiceName:
     Description: The name of the service
-    Default: "aubtest"
-    Type: String
-
-  TaskName:
-    Description: The name of the task
-    Default: "aubtest"
+    Default: yourName-service
     Type: String
 
   ServiceRole:
@@ -42,11 +37,9 @@ Parameters:
     Type: String
     Default: arn:aws:elasticloadbalancing:us-east-2:474730797349:loadbalancer/app/cap1-ECS-sandbox/4085a4d47a77dac3
 
-
   ContainerName:
     Type: String
-    Default: aubtest
-
+    Default: yourName
 
 Resources:
   Service:
@@ -58,16 +51,16 @@ Resources:
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
       LoadBalancers:
-        - ContainerName: !Sub ${!Ref TaskName}-service
+        - ContainerName: !Ref ServiceName
           ContainerPort: 8001
           TargetGroupArn: !Ref TargetGroup
 
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Family: !Sub ${!Ref TaskName}-service
+      Family: !Ref ServiceName
       ContainerDefinitions:
-        - Name: !Sub ${!Ref TaskName}-service
+        - Name: !Ref ServiceName
           Essential: true
           Image: 275396840892.dkr.ecr.us-east-1.amazonaws.com/ecs-refarch-cloudformation/product-service:1.0.0
           Memory: 128
@@ -102,7 +95,7 @@ Resources:
   ListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
     Properties:
-      ListenerArn: !Ref Listener
+#      ListenerArn: !Ref Listener
       Priority: 2
       Conditions:
         - Field: path-pattern

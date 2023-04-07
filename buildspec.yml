@@ -8,15 +8,19 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - echo IMAGE_TAG
-      - echo $IMAGE_TAG
       - echo CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
       - export HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c1-6)
-      - docker build -t demo-repo:$HASH .
-      - docker tag demo-repo:$HASH 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:$HASH       
+      - echo $HASH
+#      - docker build -t demo-repo:$HASH .
+#      - docker tag demo-repo:$HASH 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:$HASH
+      - docker build -t demo-repo:"$HASH" .
+      - docker tag demo-repo:"$HASH" 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:"$HASH" 
+ 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:latest
+      - export HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c1-6)
+      - echo $HASH
+      - docker push 474730797349.dkr.ecr.us-east-2.amazonaws.com/demo-repo:"$HASH" 
