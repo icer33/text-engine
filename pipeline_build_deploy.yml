@@ -14,7 +14,7 @@ Parameters:
     AllowedPattern: "[A-Za-z0-9-]+"
 
   GitHubRepoName:
-    Default: aubvogato/text-engine
+    Default: aubvogato/awsfun
     Type: String
     Description: Name of the Github code repository
 
@@ -80,7 +80,7 @@ Resources:
                 Provider: CodeStarSourceConnection
               Configuration:
                 ConnectionArn: arn:aws:codestar-connections:us-east-2:474730797349:connection/81654ffb-f614-4015-9f0f-5bdde410d6af
-                FullRepositoryId: aubvogato/text-engine
+                FullRepositoryId: aubvogato/awsfun
                 BranchName: aub
                 OutputArtifactFormat: CODE_ZIP
         - Name: BuildDockerContainer
