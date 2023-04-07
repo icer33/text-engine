@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Enforce .yml (rather than .yaml)
+# Get the list of files being pushed
+files=$(git diff --name-only --cached)
+
+echo "Files:" $files
+# Iterate over the files
+for file in $files; do
+  echo "File: $file"
+  # Check if the file is a YAML file
+  if [[ "$file" == *.yaml ]]; then
+
+    # Rename the file to end with .yml
+    git mv "$file" "${file%.yaml}.yml"
+    echo "Renamed $file to ${file%.yaml}.yml"
+  fi
+done
+
+exit 0
